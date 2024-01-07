@@ -15,6 +15,8 @@ def projects():
 #Add New Project App Routes here
 @app.route('/projects/<project_name>')
 def project(project_name):
+    if project_name == 'starwars':
+        return redirect('https://a874c400-df48-4fb6-bd71-fc8be5569d07-00-1s3v27kri7e9u.pike.replit.dev/')
     if project_name == 'converterandevaluator':
         return redirect('https://5e72066b-eb69-4bcb-ab36-78dd0e0cfd3b-00-ivx6fvaq550f.sisko.replit.dev/')
     if project_name == 'porfolio':
