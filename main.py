@@ -7,6 +7,9 @@ app = Flask(__name__)
 def index():
     return render_template('portfolio/portfolio.html')
 
+@app.route('/keep-alive')
+def keep_alive():
+    return 'Server is alive'
 
 @app.route('/projects')
 def projects():
