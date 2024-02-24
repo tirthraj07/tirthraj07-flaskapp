@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/projects/projects.css') }}">
+</head>
+<body>
+
+    <nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" style="font-size: 1.5rem;" href="#">Tirthraj's Projects</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+            <ul class="navbar-nav font-monospace">
+              <li class="nav-item">
+                <a class="nav-link" href="/cv">Resume</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/">Portfolio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://www.linkedin.com/in/tirthraj-mahajan-909497258/">LinkedIn</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://github.com/tirthraj07">Github</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <h4 class="font-monospace text-center mt-5 mb-5" style="text-decoration: underline; text-underline-offset: 7px;">Projects</h4>
+    
+    
+
+    <table class="table table-bordered table-hover table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Project Name</th>
+            <th scope="col">Tech Stack</th>
+            <th scope="col">Link</th>
+            <th scope="col">Source Code</th>
+          </tr>
+        </thead>
+        <tbody>
+            <!-- <tr>
+                <td>Name</td>
+                <td>Tech Stack</td>
+                <td><a href="/projects/<project_name>" target="_blank">Click Here</a></td>
+                <td><a href="" target="_blank">Github Repo</a></td>
+            </tr> -->
+            <tr>
+                <td>Star Wars API</td>
+                <td>HTML CSS JavaScript Bootstrap jQuery</td>
+                <td><a href="/projects/starwars" target="_blank">Click Here</a></td>
+                <td><a href="https://github.com/tirthraj07/StarWarsAPI" target="_blank">Github Repo</a></td>
+            </tr>
+            <tr>
+                <td>Postfix Converter and Evaluator</td>
+                <td>HTML CSS JavaScript Bootstrap</td>
+                <td><a href="/projects/converterandevaluator" target="_blank">Click Here</a></td>
+                <td><a href="https://github.com/tirthraj07/PostfixConverterAndEvaluator" target="_blank">Github Repo</a></td>
+            </tr>
+            <tr>
+                <td>Portfolio</td>
+                <td>HTML CSS JavaScript</td>
+                <td><a href="/" target="_blank">Click Here</a></td>
+                <td><a href="https://github.com/tirthraj07/tirthraj07.github.io" target="_blank">Github Repo</a></td>
+            </tr>
+            <tr>
+                <td>Health Care Website: Aarogya</td>
+                <td>HTML CSS JavaScript Flask</td>
+                <td><a href="https://replit.com/@tirthraj07/AAROGYA?v=1%23main.py" target="_blank">Click Here</a></td>
+                <td><a href="https://github.com/tirthraj07/AAROGYA" target="_blank">Github Repo</a></td>
+            </tr>
+            <tr>
+                <td>Pokedex</td>
+                <td>HTML CSS JavaScript</td>
+                <td><a href="/projects/pokedex" target="_blank">Click Here</a></td>
+                <td><a href="https://github.com/tirthraj07/Pokedex" target="_blank">Github Repo</a></td>
+            </tr>
+            <tr>
+                <td>Rock Paper Scissors</td>
+                <td>HTML CSS JavaScript</td>
+                <td><a href="/projects/rockpaperscissors" target="_blank">Click Here</a></td>
+                <td><a href="https://github.com/tirthraj07/RockPaperScissors" target="_blank">Github Repo</a></td>
+            </tr>
+            <tr>
+                <td>Guess The Number</td>
+                <td>HTML CSS JavaScript</td>
+                <td><a href="/projects/guessthenumber" target="_blank">Click Here</a></td>
+                <td><a href="https://github.com/tirthraj07/NumberGuessingGame" target="_blank">Github Repo</a></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/projects/projects.js') }}"></script>
+</body>
+</html>

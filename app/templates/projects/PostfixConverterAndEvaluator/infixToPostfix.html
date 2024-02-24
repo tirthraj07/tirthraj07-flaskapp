@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infix To PostFix and Postfix Evaluation</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/projects/PostfixConverterAndEvaluator/style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand " href="/projects/converterandevaluator/">Converter and Evaluator</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" aria-current="page" href="/projects/converterandevaluator/infixToPostfix">Converter</a>
+              <a class="nav-link" href="/projects/converterandevaluator/postfixEvaluator">Evaluator</a>
+              <a class="nav-link" href="https://github.com/tirthraj07" target="_blank">Github</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div class="container p-5 my-5 bg-primary text-white justify-content-center">
+        <h1>Infix to Postfix Converter</h1>
+        <p>Infix expressions are easily readable and solvable by humans whereas the computer cannot differentiate the operators and parenthesis easily so, it is better to convert the expression to postfix(or prefix) form before evaluation.</p>
+        <div class="alert alert-warning" role="alert">
+            Enter the Expression in Space Separated Format! For example: ( A + B / C * ( D - A ) ^ F ^ H ) or 10 + 7 * 2
+        </div>
+        
+        
+        <div class="form-group">
+            <label for="infixExpression">Infix Expression</label>
+            <input type="infixExpression" class="form-control" id="infixExpression" aria-describedby="infixExpressionHelp" placeholder="Enter Infix Expression">
+            <br>
+            <small id="infixExpressionHelp"class="form-text text-muted" style="font-size: medium;"><span style="color: white;">Algorithm to Convert </span> <a class="text-white" target="_blank" href="https://geeksforgeeks.org/convert-infix-expression-to-postfix-expression/">Infix to Postfix</a>.</small>
+        </div>
+        <br>
+        <input type="submit" class="btn btn-warning" value="Convert" onclick="convert()">
+        <br><br>
+        <div id="result" class="alert alert-primary" role="alert" style="display: none;"></div>
+
+    </div>
+
+    <table id="conversionTable" class="table table-striped table-hover w-75" style="margin: auto;">
+        <thead class="table-dark">
+            <tr>
+              <th scope="col">Sr no.</th>
+              <th scope="col">Prefix</th>
+              <th scope="col">Stack</th>
+              <th scope="col">Postfix</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+        
+        </tbody>
+    </table>
+
+    <br><br>
+
+    <div class="container p-5 my-5">
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">C++</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">JavaScript</button>
+    </li>
+    </ul>
+    <div class="tab-content pt-4 pb-4 ps-4 border border-1 border-info" id="pills-tabContent" style="border-radius: 10px;">
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+<pre style="text-wrap:wrap;">
+
+<span class="text-secondary">// Infix to Postfix Conversion </span>
+<span class="text-secondary">// Name - Tirthraj Mahajan</span>
+
+<span class="text-warning">#include</span> &lt;iostream&gt;
+<span class="text-warning">#include</span> &lt;stack&gt;
+<span class="text-warning">#include</span> &lt;map&gt;
+<span class="text-warning">#include</span> &lt;string&gt;
+<span class="text-warning">using namespace std;</span>
+
+
+
+<span class="text-secondary">// Check whether the character is an Operand</span>
+<span class="text-danger">bool</span> isOperand(char ch){
+    if (ch!='+'&&ch!='-'&&ch!='*'&&ch!='/'&&ch!='('&&ch!=')'&&ch!='^') {
+        <span class="text-primary">return</span> true;
+    }
+    else{
+        <span class="text-primary">return</span> false;
+    }
+}
+
+<span class="text-danger">string</span> infixToPostfix(<span class="text-danger">string</span> infix){
+
+    <span class="text-secondary">//Create a map of operators with their order of precedence</span>
+    map&lt;char,int&gt; precedence = {
+        {'+',1},
+        {'-',1},
+        {'*',2},
+        {'/',2},
+        {'^',3}
+    };
+
+    <span class="text-secondary">//Create an empty Postfix string</span>
+    <span class="text-danger">string</span> postfix = "";
+
+    <span class="text-secondary">//Create an empty stack to maintain the operators</span>
+    stack&lt;char&gt; st;
+
+    <span class="text-secondary">//Create a flag variable to reset the precedence stack if there is a parenthesis which is set to false initially</span>
+
+    <span class="text-danger">bool</span> flag = false;
+
+    for(int i=0; i&lt;infix.length(); i++){
+        if(isOperand(infix[i])){
+            postfix += infix[i];
+        }
+        else{
+            if(infix[i]=='('){
+                <span class="text-secondary">//Set the flag to true to reset the precedence</span>
+
+                flag = true;
+                st.push('(');
+            }
+            else if(infix[i]==')'){
+                flag = false;
+
+                <span class="text-secondary">//while the top of stack if not (, pop the elements and append them to postfix</span>
+                <span class="text-secondary">// But do check for edge cases like stack underflow incase of invalid parenthesis</span>
+
+                while(st.top()!='('&&!st.empty()){
+                    postfix += st.top();
+                    st.pop();
+                }
+                if(!st.empty()) st.pop(); <span class="text-secondary">//Remove the '(' from stack</span>
+
+            }
+
+            <span class="text-secondary">// If the stack is empty, i.e if it is the first operator, then insert the operator as it is</span>
+            <span class="text-secondary">// Set the flag to false just in case it became true in earlier call</span>
+
+            else if(st.empty()){
+                flag = false;
+                st.push(infix[i]);
+            }
+
+            <span class="text-secondary">// If the previous entry index[i-1] was an open parenthesis or the precedence of the current operator is higher than the operator on top then insert the operator as it is in the stack and set the flag to false</span>
+
+            else if(flag==true || precedence[infix[i]]&gt;precedence[st.top()]){
+                flag = false;
+                st.push(infix[i]);
+            }
+
+            <span class="text-secondary">// if the flag is false and the precedence if current element is less then that of top of stack then pop all elements from stack and append to the postfix string and then push the current element to the stack.</span>
+
+            else if(precedence[infix[i]]&lt;precedence[st.top()]){
+                while(!st.empty()){
+                    postfix += st.top();
+                    st.pop();
+                }
+                st.push(infix[i]);
+            }
+
+            <span class="text-secondary">// If the current element has the same precedence as that of the top operator of the stack then pop the stack and append it in the postfix string. Then push the current element onto the stack</span>
+
+            else if(precedence[infix[i]]==precedence[st.top()]){
+                postfix+=st.top();
+                st.pop();
+                st.push(infix[i]);
+            }
+
+        }
+    }
+
+    <span class="text-secondary">//At the end of the <span class="text-danger">string</span>, remaining operands will insert into the postfix</span>
+
+    while(!st.empty()){
+        postfix += st.top();
+        st.pop();
+    }
+
+    <span class="text-primary">return</span> postfix;
+}
+
+
+<span class="text-primary">int main() {</span>
+    <span class="text-danger">string</span> infix;
+    cout&lt;&lt;"Enter the infix expression:"&lt;&lt;endl;
+    cin&gt;&gt;infix;
+    <span class="text-danger">string</span> postfix = infixToPostfix(infix);
+    cout&lt;&lt;"Postfix Expression: "&lt;&lt;postfix&lt;&lt;endl;
+
+    <span class="text-primary"><span class="text-primary">return</span> 0;</span>
+}
+
+
+</pre>
+    </div>
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+<pre style="text-wrap:wrap;">
+
+<span class="text-secondary">// Infix to Postfix </span>
+<span class="text-secondary">// Name: Tirthraj Mahajan </span>
+
+
+<span class="text-primary">function</span> isOperand(val){
+    <span class="text-primary">if</span>(val=='('||val==')'||val=='+'||val=='-'||val=='/'||val=='*'||val=='^'||val=='–'){
+        <span class="text-primary">return</span> false;
+    }
+    <span class="text-primary">return</span> true;
+}
+
+<span class="text-primary">function</span> infixToPostfix(expression){
+    <span class="text-primary">let</span> expressionArr = expression.split(" ");
+    <span class="text-primary">console.log</span>("Expression Array: ",expressionArr);
+    <span class="text-primary">let</span> stack = [];
+    
+    <span class="text-primary">let</span> precedence = new Map([
+        ["(",0],
+        ["+",1],
+        ["-",1],
+        ["–",1],
+        ["*",2],
+        ["/",2],
+        ["^",3]
+    ]);
+    <span class="text-primary">let</span> postfix = "";
+    <span class="text-primary">for</span>(<span class="text-primary">let</span> i=0; i&lt;expressionArr<span class="text-warning">.length</span>; i++){
+        <span class="text-primary">if</span>(isOperand(expressionArr[i])){
+            postfix+=expressionArr[i];
+            postfix+=" ";
+        }
+        <span class="text-primary">else</span>{
+            <span class="text-primary">if</span>(stack<span class="text-warning">.length</span>==0){
+                stack.push(expressionArr[i]);
+            }
+            <span class="text-primary">else</span> <span class="text-primary">if</span>(expressionArr[i]=="("){
+                stack.push(expressionArr[i]);
+            }
+            <span class="text-primary">else</span> <span class="text-primary">if</span>(expressionArr[i]==")"){
+                <span class="text-primary">while</span>((stack<span class="text-warning">.length</span>!=0)&&(stack[stack<span class="text-warning">.length</span>-1]!="(")){
+                    postfix += stack<span class="text-warning">.pop()</span>;
+                    postfix+=" ";
+                }
+                stack<span class="text-warning">.pop()</span>;
+            }
+            <span class="text-primary">else</span> <span class="text-primary">if</span>((precedence.get(expressionArr[i])>precedence.get(stack[stack<span class="text-warning">.length</span>-1]))||(stack[stack<span class="text-warning">.length</span>-1] == "(")){
+                stack.push(expressionArr[i]);
+            }
+            <span class="text-primary">else</span>{
+                <span class="text-primary">while</span> (
+                    stack<span class="text-warning">.length</span> != 0 &&
+                    precedence.get(stack[stack<span class="text-warning">.length</span> - 1]) >= precedence.get(expressionArr[i])
+                ) {
+                    postfix += stack<span class="text-warning">.pop()</span>;
+                    postfix+=" ";
+                }
+                stack.push(expressionArr[i]);
+            }
+        }
+
+    }
+
+    <span class="text-primary">while</span>(stack<span class="text-warning">.length</span>!=0){
+        postfix += stack<span class="text-warning">.pop()</span>;
+        postfix+=" ";
+    }
+    <span class="text-primary">return</span> postfix;
+
+}
+
+<span class="text-primary">let</span> expression = <span class="text-warning">"( ( A + B ) – C * ( D / E ) ) + F"</span>;
+<span class="text-primary">let</span> postfix = infixToPostfix(expression);
+<span class="text-primary">console.log</span>("Postfix: ",postfix);
+
+
+</pre>
+    </div>
+    </div>
+    </div>
+
+
+    <br><br>
+    <footer class="bg-dark text-center text-white">
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2024 Tirthraj Mahajan : 
+        <a class="text-white" href="https://github.com/tirthraj07" target="_blank">Github</a>
+    </div>
+    </footer>
+
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static',filename='js/projects/PostfixConverterAndEvaluator/infixToPostfix.js') }}"></script>
+</body>
+</html>
