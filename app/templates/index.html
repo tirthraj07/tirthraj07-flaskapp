@@ -607,7 +607,7 @@
             <h3>CONTACT ME</h3>
 
             <div class="form-wrap">
-                <form action onsubmit="submit()">
+                <form id="messageForm">
                     <label for="fullname">Full Name:</label>
                     <input type="text" id="fullname" name="fullname" autocomplete="off" required><br><br>
 
@@ -618,7 +618,7 @@
                     <input type="tel" id="phone" name="phone" autocomplete="off" required><br><br>
 
                     <label for="message">Message:</label><br>
-                    <textarea id="message" name="message" rows="7" cols="50" autocomplete="off"
+                    <textarea id="message" name="message" rows="7" cols="50" style="padding: 10px;" autocomplete="off"
                         required></textarea><br><br>
 
                     <input type="submit" id="button" value="SUBMIT">
@@ -635,6 +635,7 @@
     </footer>
 
     <script src="{{ url_for('static',filename='js/script.js') }}"></script>
+    <script type="module" src="{{ url_for('static',filename='js/firebaseConfig.js') }}"></script>
 </body>
 
 </html>

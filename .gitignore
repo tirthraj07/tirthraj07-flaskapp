@@ -50,3 +50,4 @@ myenv/*
 *.xlf
 package.nls.*.json
 l10n/
+.env
