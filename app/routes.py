@@ -14,6 +14,10 @@ def keep_alive():
 def resume():
     return send_from_directory('./resume','resume.pdf')  
 
+@main_bp.route('/cv2')
+def resume2():  # Without Photo
+    return send_from_directory('./resume','resume2.pdf')  
+
 @main_bp.route('/firebaseConfig')
 def fbConfig():
     firebaseConfig = {
