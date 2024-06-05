@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect
 
 projects_bp = Blueprint('projects', __name__)
 
@@ -21,3 +21,15 @@ projects_bp.register_blueprint(ngg_bp, url_prefix='/guessthenumber')
 @projects_bp.route('/')
 def home():
     return render_template('projects/projects.html')
+
+@projects_bp.route('/deld-vitual-lab')
+def redirectVirtualLab():
+    return redirect('https://deldvirtuallab.netlify.app/')
+
+@projects_bp.route('/local-shrinks')
+def redirectLocalShrinks():
+    return redirect('https://techfiesta-web.vercel.app/')
+
+@projects_bp.route('/scalp-smart')
+def redirectScalpSmart():
+    return redirect('https://scalpsmart.onrender.com/')
