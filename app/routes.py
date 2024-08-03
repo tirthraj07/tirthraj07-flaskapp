@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, render_template, request, redirect, Response, send_from_directory, jsonify
+from flask import Flask, Blueprint, render_template, request, redirect, Response, send_from_directory, jsonify, request
 import os
 main_bp = Blueprint('main', __name__)
 
@@ -12,11 +12,15 @@ def keep_alive():
 
 @main_bp.route('/cv')
 def resume():
-    return send_from_directory('./resume','resume.pdf')  
+    version = request.args.get('version')
+    if version == "1": return send_from_directory('./resume','first-year-resume.pdf')
+    elif version == "2": return send_from_directory('./resume','second-year-resume.pdf')
+
+    return send_from_directory('./resume','TirthrajMahajan_Resume.pdf')  
 
 @main_bp.route('/cv2')
-def resume2():  # Without Photo
-    return send_from_directory('./resume','resume2.pdf')  
+def resume2():  # Type-docx
+    return send_from_directory('./resume','TirthrajMahajan_Resume.docx')  
 
 @main_bp.route('/firebaseConfig')
 def fbConfig():
