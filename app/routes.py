@@ -18,6 +18,21 @@ def resume():
 
     return send_from_directory('./resume','TirthrajMahajan_Resume.pdf')  
 
+@main_bp.route('/lp1')
+def assignments():
+    assignment = request.args.get('assignment')
+    if assignment == "1": return send_from_directory('./lp1', '01-pass1-assembler.zip')
+    elif assignment == "2": return send_from_directory('./lp1', '02-pass2-assembler.zip')
+    elif assignment == "3": return send_from_directory('./lp1', '03-pass1-macroprocessor.zip')
+    elif assignment == "4": return send_from_directory('./lp1', '04-pass2-macroprocessor.zip')
+    elif assignment == "5": return send_from_directory('./lp1', '05-scheduling.zip')
+    #elif assignment == "6": return send_from_directory('./lp1', '')
+    elif assignment == "7": return send_from_directory('./lp1', '07-multi-threaded-echo-server.zip')
+    elif assignment == "8": return send_from_directory('./lp1', '08-rpc-mechanism.zip')
+    elif assignment == "9": return send_from_directory('./lp1', '09-election-algorithms.zip')
+    return jsonify({"syntax":"assignment=?"})
+
+
 @main_bp.route('/cv2')
 def resume2():  # Type-docx
     return send_from_directory('./resume','TirthrajMahajan_Resume.docx')  
